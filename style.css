@@ -1,0 +1,138 @@
+/* Стили в стиле СФУ — синий и золотой, академично и чисто */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #e4edf5);
+    color: #2c3e50;
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 87, 165, 0.15);
+    text-align: center;
+    border: 1px solid #dce6f0;
+}
+
+/* Логотип-текст в стиле СФУ */
+h1 {
+    font-size: 2.1em;
+    color: #0057A5; /* Официальный синий цвет СФУ */
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+h1 span {
+    color: #FFD700; /* Золотой акцент */
+}
+
+.stats {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+.stats p {
+    margin: 5px 0;
+}
+
+.stats span {
+    font-weight: bold;
+    color: #0057A5;
+}
+
+/* Прогресс-бар — синий, как СФУ */
+.progress-container {
+    width: 100%;
+    height: 20px;
+    background-color: #eef2f7;
+    border-radius: 10px;
+    margin: 25px 0;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d0e0f0;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #0057A5;
+    border-radius: 9px;
+    transition: all 0.3s ease;
+}
+
+/* Кликабельная зона */
+.click-area {
+    cursor: pointer;
+    display: inline-block;
+    margin: 15px 0 10px;
+    transition: transform 0.1s;
+}
+
+.click-area:active {
+    transform: scale(0.98);
+}
+
+.click-area img {
+    width: 200px;
+    border-radius: 12px;
+    border: 3px solid #0057A5;
+    box-shadow: 0 4px 10px rgba(0, 87, 165, 0.2);
+}
+
+/* Кнопка "Сбросить прогресс" — под картинкой */
+#resetBtn {
+    margin-top: 10px;
+    padding: 10px 0;
+    width: 206px; /* Подогнано под ширину картинки с рамкой */
+    font-size: 0.95em;
+    font-weight: 600;
+    color: white;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(231, 76, 60, 0.3);
+    display: block;
+    margin: 10px auto;
+}
+
+#resetBtn:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* Лёгкая анимация при клике */
+.click-animation {
+    opacity: 0.7;
+    transition: opacity 0.15s;
+}
+
+/* Подпись внизу — как у СФУ */
+.footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+.footer a {
+    color: #0057A5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
