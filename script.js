@@ -59,8 +59,9 @@ let clickPower = 1;
 // 🔐 Код для накрутки
 const CHEAT_CODE = "sfu2025";
 
-// Загрузка
+// Загрузка данных
 function loadFromStorage() {
+    // Загружаем клики
     const savedData = localStorage.getItem("clickerData");
     if (savedData) {
         const parsed = JSON.parse(savedData);
@@ -68,33 +69,41 @@ function loadFromStorage() {
         if (parsed.dorm?.clicks !== undefined) data.dorm.clicks = parsed.dorm.clicks;
     }
 
+    // Загружаем апгрейды
     const savedUpgrades = localStorage.getItem("upgrades");
     if (savedUpgrades) {
         const parsed = JSON.parse(savedUpgrades);
-        ["university", "dorm"].forEach(mode => {
+        // Проходим по каждому режиму
+        for (const mode of ["university", "dorm"]) {
             if (parsed[mode]) {
-                Object.keys(parsed[mode]).forEach(id => {
-                    const upgrade = upgradeTemplates[mode].find(u => u.id === id);
-                    if (upgrade) upgrade.count = parsed[mode][id].count;
-                });
+                for (const id in parsed[mode]) {
+                    const saved = parsed[mode][id];
+                    // Находим шаблон в upgradeTemplates
+                    const template = upgradeTemplates[mode].find(u => u.id === id);
+                    if (template) {
+                        template.count = saved.count || 0; // Восстанавливаем количество
+                    }
+                }
             }
-        });
+        }
     }
 }
 
 // Сохранение
 function saveToStorage() {
+    // Сохраняем клики
     localStorage.setItem("clickerData", JSON.stringify({
         university: { clicks: data.university.clicks },
         dorm: { clicks: data.dorm.clicks }
     }));
 
+    // Сохраняем апгрейды по режимам
     const saved = { university: {}, dorm: {} };
-    ["university", "dorm"].forEach(mode => {
+    for (const mode of ["university", "dorm"]) {
         upgradeTemplates[mode].forEach(u => {
             saved[mode][u.id] = { count: u.count };
         });
-    });
+    }
     localStorage.setItem("upgrades", JSON.stringify(saved));
 }
 
@@ -128,7 +137,7 @@ function renderUpgrades() {
     });
 }
 
-// Покупка
+// Покупка апгрейда
 function buyUpgrade(upgrade) {
     const price = Math.floor(upgrade.price * (1 + upgrade.count * 0.5));
     if (data[currentMode].clicks < price) return;
@@ -177,20 +186,26 @@ setInterval(() => {
 // Смена режима
 function switchMode(mode) {
     currentMode = mode;
+
+    // Создаём копию шаблона
     upgrades = JSON.parse(JSON.stringify(upgradeTemplates[mode]));
 
-    const saved = localStorage.getItem("upgrades");
-    if (saved) {
-        const parsed = JSON.parse(saved);
+    // Подтягиваем сохранённые значения
+    const savedUpgrades = localStorage.getItem("upgrades");
+    if (savedUpgrades) {
+        const parsed = JSON.parse(savedUpgrades);
         if (parsed[mode]) {
             upgrades.forEach(u => {
-                if (parsed[mode][u.id]) u.count = parsed[mode][u.id].count;
+                if (parsed[mode][u.id]) {
+                    u.count = parsed[mode][u.id].count;
+                }
             });
         }
     }
 
     recalculateClickPower();
 
+    // UI
     modeButtons.forEach(btn => {
         btn.classList.remove("active");
         if (btn.dataset.mode === mode) btn.classList.add("active");
