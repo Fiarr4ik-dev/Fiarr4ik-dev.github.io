@@ -2,6 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
 }
 
 body {
@@ -35,43 +41,63 @@ h1 span {
     color: #FFD700;
 }
 
-/* Меню */
-.menu-trigger {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    background: #0057A5;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
+/* Кнопки режимов */
+.mode-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0 25px;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    padding: 10px 16px;
+    font-size: 1em;
     font-weight: 600;
-    box-shadow: 0 4px 8px rgba(0, 87, 165, 0.3);
-}
-
-.menu-trigger:hover {
-    background: #004a8c;
-}
-
-/* Выпадающее меню */
-.dropdown-menu {
-    display: none;
-    margin-bottom: 25px;
-}
-
-.menu-item {
-    padding: 12px;
-    background: #f0f4f8;
-    margin: 6px 0;
+    color: white;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 500;
-    color: #0057A5;
-    border: 1px solid #d0e0f0;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
+    min-width: 120px;
 }
 
-.menu-item:hover {
-    background: #e0ebf5;
+.mode-btn[data-mode="university"] {
+    background-color: #0057A5;
+}
+
+.mode-btn[data-mode="dorm"] {
+    background-color: #28a745;
+}
+
+.mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mode-btn.active {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.mode-btn.active[data-mode="university"] {
+    background-color: #004a8c;
+}
+
+.mode-btn.active[data-mode="dorm"] {
+    background-color: #218838;
+}
+
+/* Адаптив для маленьких экранов */
+@media (max-width: 400px) {
+    .mode-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mode-btn {
+        width: 80%;
+    }
 }
 
 /* Статистика */
@@ -116,6 +142,7 @@ h1 span {
     border-radius: 14px;
     box-shadow: 0 6px 15px rgba(0, 87, 165, 0.2);
     overflow: hidden;
+    touch-action: manipulation;
 }
 
 .click-area:active {
@@ -144,6 +171,7 @@ h1 span {
     display: block;
     margin: 10px auto;
     box-shadow: 0 3px 6px rgba(231, 76, 60, 0.3);
+    touch-action: manipulation;
 }
 
 #resetBtn:hover {

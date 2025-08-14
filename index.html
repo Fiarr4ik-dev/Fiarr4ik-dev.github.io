@@ -10,22 +10,15 @@
 <div class="container">
     <h1>Кликер-СФУ <span>🎓</span></h1>
 
-    <!-- Кнопка-триггер меню -->
-    <div class="menu-trigger" id="menuTrigger">
-        <span>Выбери локацию</span>
+    <div class="mode-buttons">
+        <button class="mode-btn active" data-mode="university">🎓 ВУЗ</button>
+        <button class="mode-btn" data-mode="dorm">🛏️ Общага</button>
     </div>
 
-    <!-- Выпадающее меню -->
-    <div class="dropdown-menu" id="dropdownMenu">
-        <div class="menu-item" data-mode="university">ВУЗ</div>
-        <div class="menu-item" data-mode="dorm">Общага</div>
-    </div>
-
-    <!-- Контент под режим -->
     <div id="modeContent">
         <div class="stats">
             <p>Прогресс: <span id="progressValue">0</span></p>
-            <p id="rankLine">Ранг: <span id="rank">-</span></p>
+            <p>Ранг: <span id="rank">-</span></p>
         </div>
 
         <div class="progress-container">
@@ -33,7 +26,7 @@
         </div>
 
         <div class="click-area" id="clickArea">
-            <img src="sfu.png" alt="Кликай по логотипу!" />
+            <img src="sfu.png" alt="Кликай по логотипу СФУ!" />
         </div>
     </div>
 
