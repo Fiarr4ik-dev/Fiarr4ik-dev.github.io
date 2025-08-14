@@ -8,18 +8,18 @@ const resetBtn = document.getElementById("resetBtn");
 let currentMode = null;
 
 const universityRanks = [
-    { name: "Абитуриент", target: 10 },
-    { name: "Студент", target: 50 },
-    { name: "Магистрант", target: 100 },
-    { name: "Аспирант", target: 300 },
-    { name: "Научный сотрудник", target: 600 },
-    { name: "Профессор", target: 800 },
-    { name: "Легенда СФУ", target: 1000 }
+    { name: "Абитуриент", target: 100 },
+    { name: "Студент", target: 500 },
+    { name: "Магистрант", target: 1000 },
+    { name: "Аспирант", target: 3000 },
+    { name: "Научный сотрудник", target: 6000 },
+    { name: "Профессор", target: 8000 },
+    { name: "Легенда СФУ", target: 10000 }
 ];
 
 const dormLevels = Array.from({ length: 30 }, (_, i) => ({
-    name: `Уровень ${i + 1}`,
-    target: (i + 1) * 10  // 10, 20, ..., 300
+    name: `Общага № ${i + 1}`,
+    target: (i + 1) * 10
 }));
 
 const data = {
@@ -86,9 +86,8 @@ function updateUI() {
     rankDisplay.textContent = currentRank.name;
     progressBar.style.width = `${Math.min(progress, 100)}%`;
 
-    // Золото на последнем уровне
     if (currentRankIndex === rankList.length - 1) {
-        progressBar.style.backgroundColor = "#d4af37";
+        progressBar.style.backgroundColor = "#5ec318";
     } else {
         progressBar.style.backgroundColor = "#0057A5";
     }
