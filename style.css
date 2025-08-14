@@ -88,13 +88,11 @@ h1 span {
     background-color: #218838;
 }
 
-/* Адаптив для маленьких экранов */
 @media (max-width: 400px) {
     .mode-buttons {
         flex-direction: column;
         align-items: center;
     }
-
     .mode-btn {
         width: 80%;
     }
@@ -156,6 +154,116 @@ h1 span {
     border-radius: 11px;
 }
 
+/* Магазин апгрейдов */
+.upgrades {
+    margin: 25px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    font-size: 0.95em;
+}
+
+.upgrades h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.upgrade-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 6px 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95em;
+    height: 100px;
+}
+
+.upgrade-item .description {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.upgrade-item button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+    background: #0057A5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 150px;
+}
+
+.upgrade-item button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.upgrade-item button:hover:not(:disabled) {
+    background: #004a8c;
+}
+
+/* Накрутка */
+.cheat-section {
+    margin: 20px 0;
+}
+
+.cheat-section button {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.95em;
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.cheat-section button:hover {
+    background-color: #e0a800;
+}
+
+#addForm {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#addForm input {
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9em;
+    width: calc(48%);
+}
+
+#addForm input::placeholder {
+    color: #adb5bd;
+}
+
+#confirmAdd {
+    background-color: #28a745 !important;
+    color: white !important;
+    width: auto !important;
+    margin-top: 15px;
+}
+
+#confirmAdd:hover {
+    background-color: #218838 !important;
+}
+
 /* Кнопка сброса */
 #resetBtn {
     margin-top: 10px;
@@ -171,7 +279,6 @@ h1 span {
     display: block;
     margin: 10px auto;
     box-shadow: 0 3px 6px rgba(231, 76, 60, 0.3);
-    touch-action: manipulation;
 }
 
 #resetBtn:hover {
