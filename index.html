@@ -3,33 +3,45 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Кликер-легенда</title>
+    <title>Кликер СФУ</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div class="container">
-    <h1>🔥 Кликер-СФУ 🔥</h1>
+    <h1>Кликер-СФУ <span>🎓</span></h1>
 
-    <div class="stats">
-        <p>Кликов: <span id="clicks">0</span></p>
-        <p>Звание: <span id="rank">Абитуриент</span></p>
+    <!-- Кнопка-триггер меню -->
+    <div class="menu-trigger" id="menuTrigger">
+        <span>Выбери локацию</span>
     </div>
 
-    <div class="progress-container">
-        <div class="progress-bar" id="progress"></div>
+    <!-- Выпадающее меню -->
+    <div class="dropdown-menu" id="dropdownMenu">
+        <div class="menu-item" data-mode="university">ВУЗ</div>
+        <div class="menu-item" data-mode="dorm">Общага</div>
     </div>
 
-    <div class="click-area" id="clickArea">
-        <img src="sfu.png" alt="Кликай!" />
+    <!-- Контент под режим -->
+    <div id="modeContent">
+        <div class="stats">
+            <p>Прогресс: <span id="progressValue">0</span></p>
+            <p id="rankLine">Ранг: <span id="rank">-</span></p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="click-area" id="clickArea">
+            <img src="sfu.png" alt="Кликай по логотипу!" />
+        </div>
     </div>
 
     <button id="resetBtn">Сбросить прогресс</button>
 
     <div class="footer">
         <p>Кликер-СФУ &copy; 2025</p>
-        <p><a href="https://sfu.ru" target="_blank">Официальный сайт СФУ</a></p>
-        <p><a href="https://t.me/fiarr4ikdev" target="_blank">Тг разработчика</a></p>
-
+        <p><a href="https://sfu-kras.ru" target="_blank">Официальный сайт СФУ</a></p>
     </div>
 </div>
 

@@ -1,4 +1,3 @@
-/* Стили в стиле СФУ — синий и золотой, академично и чисто */
 * {
     margin: 0;
     padding: 0;
@@ -25,27 +24,61 @@ body {
     border: 1px solid #dce6f0;
 }
 
-/* Логотип-текст в стиле СФУ */
 h1 {
     font-size: 2.1em;
-    color: #0057A5; /* Официальный синий цвет СФУ */
-    margin-bottom: 12px;
+    color: #0057A5;
+    margin-bottom: 20px;
     font-weight: 700;
-    letter-spacing: -0.5px;
 }
 
 h1 span {
-    color: #FFD700; /* Золотой акцент */
+    color: #FFD700;
 }
 
+/* Меню */
+.menu-trigger {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background: #0057A5;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 87, 165, 0.3);
+}
+
+.menu-trigger:hover {
+    background: #004a8c;
+}
+
+/* Выпадающее меню */
+.dropdown-menu {
+    display: none;
+    margin-bottom: 25px;
+}
+
+.menu-item {
+    padding: 12px;
+    background: #f0f4f8;
+    margin: 6px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #0057A5;
+    border: 1px solid #d0e0f0;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background: #e0ebf5;
+}
+
+/* Статистика */
 .stats {
     font-size: 1.2em;
     margin: 10px 0;
     color: #2c3e50;
-}
-
-.stats p {
-    margin: 5px 0;
 }
 
 .stats span {
@@ -53,7 +86,7 @@ h1 span {
     color: #0057A5;
 }
 
-/* Прогресс-бар — синий, как СФУ */
+/* Прогресс-бар */
 .progress-container {
     width: 100%;
     height: 20px;
@@ -73,30 +106,34 @@ h1 span {
     transition: all 0.3s ease;
 }
 
-/* Кликабельная зона */
+/* Клик по логотипу */
 .click-area {
     cursor: pointer;
     display: inline-block;
-    margin: 15px 0 10px;
+    margin: 15px 0;
     transition: transform 0.1s;
+    border: 3px solid #0057A5;
+    border-radius: 14px;
+    box-shadow: 0 6px 15px rgba(0, 87, 165, 0.2);
+    overflow: hidden;
 }
 
 .click-area:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
 }
 
 .click-area img {
-    width: 200px;
-    border-radius: 12px;
-    border: 3px solid #0057A5;
-    box-shadow: 0 4px 10px rgba(0, 87, 165, 0.2);
+    width: 220px;
+    height: auto;
+    display: block;
+    border-radius: 11px;
 }
 
-/* Кнопка "Сбросить прогресс" — под картинкой */
+/* Кнопка сброса */
 #resetBtn {
     margin-top: 10px;
     padding: 10px 0;
-    width: 206px; /* Подогнано под ширину картинки с рамкой */
+    width: 226px;
     font-size: 0.95em;
     font-weight: 600;
     color: white;
@@ -104,23 +141,16 @@ h1 span {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    box-shadow: 0 3px 6px rgba(231, 76, 60, 0.3);
     display: block;
     margin: 10px auto;
+    box-shadow: 0 3px 6px rgba(231, 76, 60, 0.3);
 }
 
 #resetBtn:hover {
     background-color: #c0392b;
-    transform: translateY(-1px);
 }
 
-/* Лёгкая анимация при клике */
-.click-animation {
-    opacity: 0.7;
-    transition: opacity 0.15s;
-}
-
-/* Подпись внизу — как у СФУ */
+/* Подвал */
 .footer {
     margin-top: 30px;
     font-size: 0.9em;

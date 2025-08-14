@@ -1,76 +1,148 @@
 // Элементы
+const menuTrigger = document.getElementById("menuTrigger");
+const dropdownMenu = document.getElementById("dropdownMenu");
+const menuItems = document.querySelectorAll(".menu-item");
 const clickArea = document.getElementById("clickArea");
-const clicksDisplay = document.getElementById("clicks");
+const progressValue = document.getElementById("progressValue");
 const rankDisplay = document.getElementById("rank");
-const progressBar = document.getElementById("progress");
+const progressBar = document.getElementById("progressBar");
 const resetBtn = document.getElementById("resetBtn");
 
-const ranks = [
-    { name: "Абитуриент",      target: 1000,   color: "#6c757d" },   // серый — начало пути
-    { name: "Студент",         target: 5000,   color: "#007bff" },   // синий — как СФУ
-    { name: "Магистрант",      target: 10000,  color: "#28a745" },   // зелёный — рост
-    { name: "Аспирант",        target: 30000,  color: "#fd7e14" },   // оранжевый — наука
-    { name: "Научный сотрудник", target: 60000, color: "#17a2b8" },  // бирюзовый — исследователь
-    { name: "Профессор",       target: 80000,  color: "#6f42c1" },   // фиолетовый — мудрость
-    { name: "Легенда СФУ",     target: 100000, color: "#d4af37" }    // золотой — пик!
+// Режим: university или dorm
+let currentMode = null;
+
+// Ранги ВУЗа
+const universityRanks = [
+    { name: "Абитуриент", target: 10 },
+    { name: "Студент", target: 50 },
+    { name: "Магистрант", target: 100 },
+    { name: "Аспирант", target: 300 },
+    { name: "Научный сотрудник", target: 600 },
+    { name: "Профессор", target: 800 },
+    { name: "Легенда СФУ", target: 1000 }
 ];
 
-// Загрузка прогресса
-let totalClicks = parseInt(localStorage.getItem("clickerTotal")) || 0;
-let currentRankIndex = 0;
+// Уровни общаги — от 1 до 30
+const dormLevels = Array.from({ length: 30 }, (_, i) => ({
+    name: `Общага № ${i + 1}`,
+    target: (i + 1) * 10  // 10, 20, 30, ..., 300
+}));
 
-// Определяем текущий ранг
-function updateRank() {
-    for (let i = 0; i < ranks.length; i++) {
-        if (totalClicks < ranks[i].target) {
-            currentRankIndex = i;
-            break;
-        }
-        if (i === ranks.length - 1) {
-            currentRankIndex = i; // Максимальный ранг
-        }
+// Данные по режимам
+const data = {
+    university: { clicks: 0, ranks: universityRanks },
+    dorm: { clicks: 0, ranks: dormLevels }
+};
+
+// Загрузка данных
+function loadFromStorage() {
+    const saved = localStorage.getItem("clickerData");
+    if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.university?.clicks !== undefined) data.university.clicks = parsed.university.clicks;
+        if (parsed.dorm?.clicks !== undefined) data.dorm.clicks = parsed.dorm.clicks;
     }
+}
+
+// Сохранение
+function saveToStorage() {
+    localStorage.setItem("clickerData", JSON.stringify({
+        university: { clicks: data.university.clicks },
+        dorm: { clicks: data.dorm.clicks }
+    }));
+}
+
+// Установка режима
+function setMode(mode) {
+    currentMode = mode;
+    menuTrigger.textContent = mode === "university" ? "🎓 ВУЗ" : "🛏️ Общага";
+    dropdownMenu.style.display = "none";
+    updateUI();
 }
 
 // Обновление интерфейса
 function updateUI() {
-    clicksDisplay.textContent = totalClicks;
-    rankDisplay.textContent = ranks[currentRankIndex].name;
+    const d = data[currentMode];
+    const rankList = d.ranks;
+    let currentRankIndex = 0;
+    let nextTarget = rankList[0].target;
 
-    const currentTarget = ranks[currentRankIndex].target;
-    const prevTarget = currentRankIndex === 0 ? 0 : ranks[currentRankIndex - 1].target;
-    const progress = ((totalClicks - prevTarget) / (currentTarget - prevTarget)) * 100;
+    for (let i = 0; i < rankList.length; i++) {
+        if (d.clicks < rankList[i].target) {
+            currentRankIndex = i;
+            nextTarget = rankList[i].target;
+            break;
+        }
+        if (i === rankList.length - 1) {
+            currentRankIndex = i;
+            nextTarget = rankList[i].target;
+        }
+    }
+
+    const currentRank = rankList[currentRankIndex];
+    const prevTarget = currentRankIndex === 0 ? 0 : rankList[currentRankIndex - 1].target;
+    const progress = nextTarget - prevTarget > 0
+        ? ((d.clicks - prevTarget) / (nextTarget - prevTarget)) * 100
+        : 100;
+
+    progressValue.textContent = d.clicks;
+    rankDisplay.textContent = currentRank.name;
     progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+    // Цвет прогресс-бара — золотой на последнем уровне
+    if (currentRankIndex === rankList.length - 1) {
+        progressBar.style.backgroundColor = "#d4af37";
+    } else {
+        progressBar.style.backgroundColor = "#0057A5";
+    }
 }
 
 // Клик!
 clickArea.addEventListener("click", () => {
-    totalClicks++;
+    if (!currentMode) {
+        alert("Выбери режим: ВУЗ или Общага");
+        return;
+    }
+
+    data[currentMode].clicks++;
     clickArea.classList.add("click-animation");
 
-    // Сохраняем
-    localStorage.setItem("clickerTotal", totalClicks);
-
-    // Обновляем
-    updateRank();
-    updateUI();
-
-    // Убираем анимацию
     setTimeout(() => {
         clickArea.classList.remove("click-animation");
-    }, 300);
+    }, 150);
+
+    saveToStorage();
+    updateUI();
 });
 
-// Сброс прогресса
+// Сброс
 resetBtn.addEventListener("click", () => {
-    if (confirm("Ты уверен? Весь прогресс будет потерян!")) {
-        totalClicks = 0;
-        localStorage.removeItem("clickerTotal");
-        updateRank();
+    if (!currentMode) return;
+    if (confirm("Сбросить прогресс этого режима?")) {
+        data[currentMode].clicks = 0;
+        saveToStorage();
         updateUI();
     }
 });
 
+// Меню
+menuTrigger.addEventListener("click", () => {
+    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+});
+
+menuItems.forEach(item => {
+    item.addEventListener("click", () => {
+        setMode(item.dataset.mode);
+    });
+});
+
+// Закрытие меню при клике вне
+document.addEventListener("click", (e) => {
+    if (!menuTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.style.display = "none";
+    }
+});
+
 // Инициализация
-updateRank();
+loadFromStorage();
 updateUI();
